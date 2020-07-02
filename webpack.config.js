@@ -22,7 +22,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "index.html"
+            template: 'index.html'
         }),
         new CopyPlugin({
             patterns: [
@@ -35,5 +35,27 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'bundle.[hash].css'
         })
-    ]
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ],
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    }
 }
