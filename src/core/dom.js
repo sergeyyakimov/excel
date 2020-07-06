@@ -55,7 +55,9 @@ class Dom {
   }
 
   css(styles = {}) {
-    return ''
+    Object
+        .keys(styles)
+        .forEach(key => this.$el.style[key] = styles[key])
   }
 }
 
